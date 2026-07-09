@@ -6,6 +6,7 @@ export type PillNavItem = {
     label: string;
     href: string;
     ariaLabel?: string;
+    external?: boolean; // opens in a new tab (e.g. resume PDF)
 };
 
 export interface PillNavProps {
@@ -208,7 +209,7 @@ const PillNav: React.FC<PillNavProps> = ({
     return (
         <div className="relative">
             <nav
-                className={`flex items-center justify-end ${className}`}
+                className={`flex items-center justify-start ${className}`}
                 aria-label="Primary"
                 style={cssVars}
             >
@@ -281,6 +282,8 @@ const PillNav: React.FC<PillNavProps> = ({
                                     <a
                                         role="menuitem"
                                         href={item.href}
+                                        target={item.external ? '_blank' : undefined}
+                                        rel={item.external ? 'noreferrer' : undefined}
                                         className={basePillClasses}
                                         style={pillStyle}
                                         aria-label={item.ariaLabel || item.label}
@@ -322,38 +325,27 @@ const PillNav: React.FC<PillNavProps> = ({
             {/* Mobile Menu Dropdown */}
             <div
                 ref={mobileMenuRef}
-                className="md:hidden absolute top-14 right-0 rounded-[27px] shadow-[0_8px_32px_rgba(0,0,0,0.12)] z-[998] origin-top min-w-[160px]"
+                className="md:hidden absolute top-14 left-0 rounded-[27px] border border-[#26262f] shadow-[0_12px_40px_rgba(0,0,0,0.6)] z-[998] origin-top min-w-[180px] overflow-hidden"
                 style={{
                     ...cssVars,
-                    background: 'var(--base, #f0f0f0)'
+                    background: 'rgba(16, 16, 22, 0.92)',
+                    backdropFilter: 'blur(14px)',
+                    WebkitBackdropFilter: 'blur(14px)'
                 }}
             >
-                <ul className="list-none m-0 p-[3px] flex flex-col gap-[3px]">
+                <ul className="list-none m-0 p-[6px] flex flex-col gap-[2px]">
                     {items.map(item => {
-                        const defaultStyle: React.CSSProperties = {
-                            background: 'var(--pill-bg, #fff)',
-                            color: 'var(--pill-text, #fff)'
-                        };
-                        const hoverIn = (e: React.MouseEvent<HTMLAnchorElement>) => {
-                            e.currentTarget.style.background = 'var(--base)';
-                            e.currentTarget.style.color = 'var(--hover-text, #fff)';
-                        };
-                        const hoverOut = (e: React.MouseEvent<HTMLAnchorElement>) => {
-                            e.currentTarget.style.background = 'var(--pill-bg, #fff)';
-                            e.currentTarget.style.color = 'var(--pill-text, #fff)';
-                        };
-
                         const linkClasses =
-                            'block py-3 px-4 text-[14px] font-medium rounded-[50px] transition-all duration-200 ease-[cubic-bezier(0.25,0.1,0.25,1)]';
+                            'block py-3 px-4 text-[14px] font-medium rounded-[50px] transition-colors duration-200 active:bg-white/10';
 
                         return (
                             <li key={item.href}>
                                 <a
                                     href={item.href}
+                                    target={item.external ? '_blank' : undefined}
+                                    rel={item.external ? 'noreferrer' : undefined}
                                     className={linkClasses}
-                                    style={defaultStyle}
-                                    onMouseEnter={hoverIn}
-                                    onMouseLeave={hoverOut}
+                                    style={{ color: 'rgba(232, 232, 238, 0.9)' }}
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     {item.label}

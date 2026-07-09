@@ -57,19 +57,22 @@ npm start
 
 ```
 app/
-  page.tsx              # Entry Gate
-  about/page.tsx        # About Room
-  globals.css           # Global styles & fonts
+  page.tsx              # Single-page layout (all chapters)
+  layout.tsx            # Fonts & metadata
+  globals.css           # Global styles & utilities
 
 components/
-  EntryGate.tsx         # Animated landing
-  AboutRoom.tsx         # Draggable objects
+  Hero.tsx              # Landing with ASCII portrait
+  About.tsx             # Bio, tech stack, profile
+  Craft.tsx             # What I do + skills marquee
+  Work.tsx              # Sticky-stacking project cards
+  Beyond.tsx            # Off-screen facets (story cards)
+  Contact.tsx           # Say hello footer
 
 public/
-  surfer.png
-  space.jpg
-  book.png
-  bar.png
+  images/pfp.png
+  projects/
+  sketches/
   fonts/
 ```
 
