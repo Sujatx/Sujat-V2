@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ChapterHeading from "./ChapterHeading";
+import { ntr } from "@/lib/fonts";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -326,12 +327,12 @@ function FacetCard({
         </div>
       </div>
 
-      <h3 className="font-dune mb-1 text-lg uppercase tracking-wider text-ink sm:text-xl">
+      <h3 className={`${ntr.className} mb-1 text-lg uppercase tracking-wider text-ink sm:text-xl`}>
         {facet.title}
       </h3>
-      <p className="mb-6 text-sm text-muted">{facet.subtitle}</p>
+      <p className={`${ntr.className} mb-6 text-sm text-muted`}>{facet.subtitle}</p>
 
-      <p className="border-t border-line pt-5 text-sm leading-relaxed text-ink/70">
+      <p className={`${ntr.className} border-t border-line pt-5 text-sm leading-relaxed text-ink/70`}>
         {facet.story}
       </p>
     </article>
@@ -421,14 +422,14 @@ export default function Beyond() {
     <section
       id="beyond"
       ref={sectionRef}
-      className="relative z-10 px-6 py-28 sm:px-10 sm:py-36"
+      className="relative z-10 px-6 py-16 sm:px-10 sm:py-36"
     >
-      <div className="mx-auto w-full max-w-6xl">
-      <ChapterHeading label="/off screen" title="Beyond the Code" />
+      <div className="mx-auto w-full max-w-5xl">
+      <ChapterHeading label="/ off screen" />
 
       <p
         data-beyond-quote
-        className="font-display mb-16 max-w-2xl text-2xl font-bold leading-snug tracking-tight text-muted sm:mb-24 sm:text-3xl"
+        className={`${ntr.className} mb-16 max-w-2xl text-2xl font-bold leading-snug tracking-tight text-muted sm:mb-24 sm:text-3xl`}
       >
         When no one&apos;s watching —{" "}
         <span className="text-ink">who are you?</span>

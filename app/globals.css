@@ -150,7 +150,8 @@ html.lenis body {
   .marquee-track {
     animation: none;
   }
-  *,
+  /* the caret's opacity pulse isn't vestibular motion, so it stays */
+  *:not(.caret-blink),
   *::before,
   *::after {
     animation-duration: 0.01ms !important;

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ntr } from "@/lib/fonts";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -64,14 +65,14 @@ export default function ChapterHeading({ label, title }: Props) {
 
   return (
     <div ref={ref} className="mb-14 sm:mb-20" style={{ perspective: "900px" }}>
-      <div className="mb-6 flex items-center gap-4">
+      <div className="mb-6 flex items-center gap-5 sm:gap-7">
         <span
           data-ch-meta
-          className="font-mono2 text-[11px] uppercase tracking-[0.3em] text-accent"
+          className={`${ntr.className} whitespace-nowrap text-3xl font-extrabold tracking-tight text-white [-webkit-text-stroke:0.75px_white] sm:text-4xl lg:text-[2.75rem]`}
         >
           {label}
         </span>
-        <span data-ch-meta className="h-px flex-1 bg-line" aria-hidden />
+        <span data-ch-meta className="h-px max-w-md flex-1 bg-line" aria-hidden />
       </div>
       {title && (
         <h2

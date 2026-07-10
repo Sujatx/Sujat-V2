@@ -1,12 +1,16 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import AsciiPortrait from "./AsciiPortrait";
 import { personal, skills } from "@/lib/data";
+import { ntr } from "@/lib/fonts";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// words that get the accent treatment in the bio
+const HIGHLIGHTS = new Set(["developer", "shipping"]);
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -51,65 +55,81 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative z-10 px-6 py-28 sm:px-10 sm:py-36"
+      className="relative z-10 flex items-center px-6 py-16 sm:px-10 sm:py-24 lg:min-h-svh"
     >
-      <div className="mx-auto w-full max-w-6xl">
-      <div className="mb-16 flex items-center gap-4 sm:mb-20">
-        <span className="font-mono2 text-[11px] uppercase tracking-[0.3em] text-accent">
-          /about me
-        </span>
-        <span className="h-px flex-1 bg-line" aria-hidden />
-      </div>
+      <div className="mx-auto w-full max-w-5xl">
+        <div className="mb-10 flex items-center gap-5 sm:mb-14 sm:gap-7">
+          <h2 className={`${ntr.className} whitespace-nowrap text-3xl font-extrabold tracking-tight text-white [-webkit-text-stroke:0.75px_white] sm:text-4xl lg:text-[2.75rem]`}>
+            / about me
+          </h2>
+          <span className="h-px max-w-md flex-1 bg-line" aria-hidden />
+        </div>
 
-      <div className="grid items-center gap-16 lg:grid-cols-[1fr_minmax(0,380px)] lg:gap-24">
-        {/* story */}
-        <div className="max-w-2xl">
-          <p
-            data-bio
-            className="font-display text-xl font-bold leading-[1.55] tracking-tight sm:text-2xl"
-          >
-            {personal.bio.split(" ").map((word, i) => (
-              <span key={i} data-word className="inline-block">
-                {word}&nbsp;
-              </span>
-            ))}
-          </p>
-
-          <div data-about-aside className="mt-12">
-            <p className="mb-6 leading-relaxed text-muted">
-              Here are some of the technologies I&apos;ve been working with —
-            </p>
-            <ul className="grid max-w-md grid-cols-2 gap-x-10 gap-y-4">
-              {skills.map((skill) => (
-                <li
-                  key={skill}
-                  className="flex items-center gap-2.5 font-mono2 text-xs uppercase tracking-[0.2em] text-ink/90"
-                >
-                  <span className="text-accent" aria-hidden>
-                    ▸
+        <div className="grid items-start gap-12 lg:grid-cols-[1fr_minmax(0,360px)]">
+          {/* story */}
+          <div className={`${ntr.className} max-w-2xl`}>
+            <p data-bio className="text-lg leading-relaxed text-ink/80 sm:text-xl">
+              {personal.bio.split(" ").map((word, i) => {
+                const accented = HIGHLIGHTS.has(
+                  word.toLowerCase().replace(/[^a-z]/g, "")
+                );
+                return (
+                  <span
+                    key={i}
+                    data-word
+                    className={`inline-block ${accented ? "font-medium text-accent" : ""}`}
+                  >
+                    {word}&nbsp;
                   </span>
-                  {skill}
-                </li>
-              ))}
-            </ul>
+                );
+              })}
+            </p>
+
+            <div data-about-aside className="mt-7">
+              <p className="mb-4 text-lg leading-relaxed text-muted sm:text-xl">
+                Here are some technologies I have been working with:
+              </p>
+              <ul className="grid max-w-md grid-cols-2 gap-x-10 gap-y-1.5">
+                {skills.map((skill) => (
+                  <li
+                    key={skill}
+                    className="flex items-center gap-2.5 text-base leading-snug text-ink/80 sm:text-lg"
+                  >
+                    <span className="text-accent" aria-hidden>
+                      ▸
+                    </span>
+                    {skill}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <p data-about-aside className="mt-7 text-lg leading-relaxed text-muted sm:text-xl">
+              In my free time, you'll find me in a corner reading books, sketching a masterpiece or just sitting with my thoughts. 
+            </p>
           </div>
 
-          <p data-about-aside className="mt-12 leading-relaxed text-muted">
-            Currently shipping side projects, contributing to open source when
-            something catches my eye, and figuring it out as I go.
-          </p>
-        </div>
-
-        {/* portrait */}
-        <div data-about-aside className="mx-auto w-full max-w-sm lg:mx-0 lg:max-w-none">
-          <div className="relative aspect-[3/4] w-full" role="img" aria-label="ASCII portrait of Sujat Khan">
-            <AsciiPortrait src="/images/pfp.png" />
-            <span className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-bg/70 px-4 py-1.5 font-mono2 text-[10px] uppercase tracking-[0.2em] text-ink/90 backdrop-blur-sm">
-              To define is to limit.
-            </span>
+          {/* photo card */}
+          <div
+            data-about-aside
+            className="hidden w-full lg:block lg:max-w-[315px]"
+          >
+            <div className="relative aspect-square overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] shadow-[0_25px_70px_-15px_rgba(0,0,0,0.8),0_18px_50px_-20px_rgba(168,85,247,0.35)] backdrop-blur-md transition-transform duration-500 will-change-transform hover:-translate-y-2">
+              {/* glass sheen */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 z-10 rounded-2xl bg-gradient-to-br from-white/10 via-transparent to-transparent"
+              />
+              <Image
+                src="/images/pfp.png"
+                alt={personal.name}
+                fill
+                sizes="(min-width: 1024px) 315px, 260px"
+                className="object-cover object-top"
+              />
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </section>
   );

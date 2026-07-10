@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
+import { ntr } from '@/lib/fonts';
 
 export type PillNavItem = {
     label: string;
@@ -9,9 +10,20 @@ export type PillNavItem = {
     external?: boolean; // opens in a new tab (e.g. resume PDF)
 };
 
+export type PillNavSocial = {
+    label: string;
+    href: string;
+    external: boolean;
+    icon: React.ReactNode;
+};
+
 export interface PillNavProps {
     items: PillNavItem[];
     activeHref?: string;
+    /** shown as an icon row inside the mobile dropdown */
+    socials?: PillNavSocial[];
+    /** rendered inside the rounded bar, before the pills (e.g. the site owner's name) */
+    logo?: React.ReactNode;
     className?: string;
     ease?: string;
     baseColor?: string;
@@ -25,6 +37,8 @@ export interface PillNavProps {
 const PillNav: React.FC<PillNavProps> = ({
     items,
     activeHref,
+    socials = [],
+    logo,
     className = '',
     ease = 'power3.easeOut',
     baseColor = '#fff',
@@ -196,13 +210,27 @@ const PillNav: React.FC<PillNavProps> = ({
         onMobileMenuClick?.();
     };
 
+    // close the mobile menu when tapping anywhere outside it
+    useEffect(() => {
+        if (!isMobileMenuOpen) return;
+        const onPointerDown = (e: PointerEvent) => {
+            const target = e.target as Node;
+            if (mobileMenuRef.current?.contains(target)) return;
+            if (hamburgerRef.current?.contains(target)) return;
+            toggleMobileMenu();
+        };
+        document.addEventListener('pointerdown', onPointerDown);
+        return () => document.removeEventListener('pointerdown', onPointerDown);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isMobileMenuOpen]);
+
     const cssVars = {
         ['--base']: baseColor,
         ['--pill-bg']: pillColor,
         ['--hover-text']: hoveredPillTextColor,
         ['--pill-text']: resolvedPillTextColor,
-        ['--nav-h']: '42px',
-        ['--pill-pad-x']: '18px',
+        ['--nav-h']: '36px',
+        ['--pill-pad-x']: '14px',
         ['--pill-gap']: '3px'
     } as React.CSSProperties;
 
@@ -222,6 +250,9 @@ const PillNav: React.FC<PillNavProps> = ({
                         background: 'var(--base, #000)'
                     }}
                 >
+                    {logo && (
+                        <div className="flex items-center pl-4 pr-4">{logo}</div>
+                    )}
                     <ul
                         role="menubar"
                         className="list-none flex items-stretch m-0 p-[3px] h-full"
@@ -275,7 +306,7 @@ const PillNav: React.FC<PillNavProps> = ({
                             );
 
                             const basePillClasses =
-                                'relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[14px] leading-[0] uppercase tracking-[0.2px] whitespace-nowrap cursor-pointer px-0';
+                                `${ntr.className} relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[14px] leading-[0] uppercase tracking-[0.2px] whitespace-nowrap cursor-pointer px-0`;
 
                             return (
                                 <li key={item.href} role="none" className="flex h-full">
@@ -304,20 +335,19 @@ const PillNav: React.FC<PillNavProps> = ({
                     onClick={toggleMobileMenu}
                     aria-label="Toggle menu"
                     aria-expanded={isMobileMenuOpen}
-                    className="md:hidden rounded-full border-0 flex flex-col items-center justify-center gap-1 cursor-pointer p-0 relative"
+                    className="md:hidden rounded-full border border-white/15 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center gap-1 cursor-pointer p-0 relative"
                     style={{
                         width: 'var(--nav-h)',
-                        height: 'var(--nav-h)',
-                        background: 'var(--base, #000)'
+                        height: 'var(--nav-h)'
                     }}
                 >
                     <span
                         className="hamburger-line w-4 h-0.5 rounded origin-center transition-all duration-[10ms] ease-[cubic-bezier(0.25,0.1,0.25,1)]"
-                        style={{ background: 'var(--pill-bg, #fff)' }}
+                        style={{ background: 'rgba(232, 232, 238, 0.9)' }}
                     />
                     <span
                         className="hamburger-line w-4 h-0.5 rounded origin-center transition-all duration-[10ms] ease-[cubic-bezier(0.25,0.1,0.25,1)]"
-                        style={{ background: 'var(--pill-bg, #fff)' }}
+                        style={{ background: 'rgba(232, 232, 238, 0.9)' }}
                     />
                 </button>
             </nav>
@@ -354,6 +384,27 @@ const PillNav: React.FC<PillNavProps> = ({
                         );
                     })}
                 </ul>
+                {socials.length > 0 && (
+                    <>
+                        <div className="mx-3 h-px bg-[#26262f]" aria-hidden />
+                        <div className="flex items-center gap-1 p-[6px]">
+                            {socials.map(social => (
+                                <a
+                                    key={social.label}
+                                    href={social.href}
+                                    aria-label={social.label}
+                                    target={social.external ? '_blank' : undefined}
+                                    rel={social.external ? 'noreferrer' : undefined}
+                                    className="flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-200 active:bg-white/10"
+                                    style={{ color: 'rgba(232, 232, 238, 0.75)' }}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    {social.icon}
+                                </a>
+                            ))}
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     );

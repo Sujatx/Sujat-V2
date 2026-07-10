@@ -56,7 +56,7 @@ export default function Craft() {
   return (
     <section
       ref={sectionRef}
-      className="relative z-10 py-28 sm:py-36"
+      className="relative z-10 py-16 sm:py-36"
       aria-label="What I do"
     >
       <div className="mx-auto w-full max-w-6xl px-6 sm:px-10">

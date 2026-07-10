@@ -43,10 +43,10 @@ export default function Work() {
     <section
       id="work"
       ref={sectionRef}
-      className="relative z-10 px-6 pb-32 pt-28 sm:px-10 sm:pt-36"
+      className="relative z-10 px-6 pb-20 pt-16 sm:px-10 sm:pb-32 sm:pt-36"
     >
-      <div className="mx-auto w-full max-w-6xl">
-      <ChapterHeading label="/work" title="Selected Work" />
+      <div className="mx-auto w-full max-w-5xl">
+      <ChapterHeading label="/ work" />
 
       <div className="flex flex-col gap-8 sm:gap-10">
         {projects.map((project) => (
