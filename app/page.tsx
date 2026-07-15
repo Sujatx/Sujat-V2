@@ -1,6 +1,7 @@
 import SmoothScroll from "@/components/SmoothScroll";
 import Preloader from "@/components/Preloader";
 import Starfield from "@/components/Starfield";
+import SpaceDrifter from "@/components/SpaceDrifter";
 import NavBar from "@/components/NavBar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -13,6 +14,7 @@ export default function Home() {
     <SmoothScroll>
       <Preloader />
       <Starfield />
+      <SpaceDrifter />
       <NavBar />
       <main>
         <Hero />

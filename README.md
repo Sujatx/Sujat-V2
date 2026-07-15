@@ -1,88 +1,51 @@
-# Sujat Khan — Portfolio
+<p align="center">
+  <img src="https://img.icons8.com/color/48/000000/telescope.png" alt="telescope"/>
+</p>
+<h1 align="center">
+  Second Portfolio - v2
+</h1>
+<p align="center">
+  The second iteration of <a href="portfolio-v2-alpha-olive.vercel.app" target="_blank">sujatkhan</a> built with Next.js 16 and React 19, leveraging Tailwind CSS v4, GSAP, and Lenis smooth scroll.
+</p>
+<p align="center">
+  <img src="public/og.png" width="100%" alt="sujat-v2-view"/>
+</p>
 
-A clean and immersive personal portfolio built with a focus on performance, motion, and cinematic presentation. The project uses modern web technologies to create a smooth, interactive experience that showcases skills, personality, and selected work.
+## 🛠 set-up
 
-##  🚀 Overview
+1. Install the dependencies
 
-This portfolio consists of two core experiences:
+   ```sh
+   npm install
+   ```
 
-* A **cinematic entry page** featuring animated elements, custom canvas starfield, and parallax text.
-* An **interactive About Room**, containing draggable objects that reveal structured information such as skills, stats, and personal interests.
+2. Start the development server
 
-The project is modular, scalable, and optimized for smooth animation across modern devices.
+   ```sh
+   npm run dev
+   ```
 
-## 🛠️Tech Stack
+## 🚀 build and run for production
 
-* **Next.js 15** (App Router)
-* **React**
-* **TailwindCSS**
-* **Framer Motion**
-* **Custom Canvas Rendering** for the starfield
+1. Generate a full static production build
 
-## ⚙️Setup
+   ```sh
+   npm run build
+   ```
 
-Clone the repository and install dependencies:
+2. Start the production server
 
-```
-npm install
-```
+   ```sh
+   npm start
+   ```
 
-Run the development server:
+## 🎨 color codes
 
-```
-npm run dev
-```
-
-Navigate to:
-
-```
-http://localhost:3000
-```
-
-## Build
-
-Generate a production build:
-
-```
-npm run build
-```
-
-Start the optimized server:
-
-```
-npm start
-```
-
-##  📂 File Structure
-
-```
-app/
-  page.tsx              # Single-page layout (all chapters)
-  layout.tsx            # Fonts & metadata
-  globals.css           # Global styles & utilities
-
-components/
-  Hero.tsx              # Landing with ASCII portrait
-  About.tsx             # Bio, tech stack, profile
-  Craft.tsx             # What I do + skills marquee
-  Work.tsx              # Sticky-stacking project cards
-  Beyond.tsx            # Off-screen facets (story cards)
-  Contact.tsx           # Say hello footer
-
-public/
-  images/pfp.png
-  projects/
-  sketches/
-  fonts/
-```
-
-## 🤝Contribution
-
-Contributions, improvements, and suggestions are welcome. If you want to add features, improve animations, or enhance the design:
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit changes with clear messages
-4. Open a pull request
-
-This ensures a clean workflow and maintainable progress.
+| Color  | Hex                                                             |
+| ------ | --------------------------------------------------------------- |
+| Void   | ![#050508](https://placehold.co/15/050508/050508.png) `#050508` |
+| Surface| ![#101016](https://placehold.co/15/101016/101016.png) `#101016` |
+| Line   | ![#26262f](https://placehold.co/15/26262f/26262f.png) `#26262f` |
+| Muted  | ![#8b8b98](https://placehold.co/15/8b8b98/8b8b98.png) `#8b8b98` |
+| Ink    | ![#e8e8ee](https://placehold.co/15/e8e8ee/e8e8ee.png) `#e8e8ee` |
+| Purple | ![#a855f7](https://placehold.co/15/a855f7/a855f7.png) `#a855f7` |
