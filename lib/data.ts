@@ -2,7 +2,8 @@ import details from "@/details.json";
 
 export type Project = {
   num: string;
-  title: string;
+  titleLine1: string;
+  titleLine2: string;
   description: string;
   techStack: string[];
   github: string | null;

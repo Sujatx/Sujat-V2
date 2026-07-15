@@ -66,8 +66,9 @@ export default function Work() {
                       {project.live ? "Live project" : "Open source"}
                     </span>
                   </div>
-                  <h3 className="font-display mb-4 text-3xl font-extrabold uppercase tracking-tight sm:text-4xl lg:text-5xl">
-                    {project.title}
+                  <h3 className="font-display mb-4 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight sm:text-4xl lg:text-5xl">
+                    <span className="block">{project.titleLine1}</span>
+                    <span className="block">{project.titleLine2}</span>
                   </h3>
                   <p className="max-w-md leading-relaxed text-muted">
                     {project.description}
@@ -120,7 +121,7 @@ export default function Work() {
               <div className="group relative order-1 min-h-[240px] overflow-hidden border-b border-line sm:min-h-[320px] md:order-2 md:border-b-0 md:border-l">
                 <Image
                   src={project.image}
-                  alt={`${project.title} screenshot`}
+                  alt={`${project.titleLine1} ${project.titleLine2} screenshot`}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
